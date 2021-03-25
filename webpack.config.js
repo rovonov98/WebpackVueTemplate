@@ -5,11 +5,17 @@ const { CleanWebpackPlugin }  = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = (_, { mode }) => ({
-    entry: path.join(__dirname, 'src', 'main.js'),
+    entry: {
+        main: path.join(__dirname, 'src', 'main.js'),
+        vendor: path.join(__dirname, 'src', 'vendor.js')
+    },
     output: {
         path: path.join(__dirname, 'dist'),
         publicPath: '/dist/',
-        filename: '[name].js'
+        filename: 
+        mode === 'production'
+        ? '[name].[contenthash].bundle.js'
+        : '[name].js'
     },
     module: {
         rules: [
@@ -53,10 +59,15 @@ module.exports = (_, { mode }) => ({
     },
     plugins: [
         new VueLoaderPlugin(),
-        new HtmlWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            title: 'Webpack Vue template'
+        }),
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
-            filename: '[name].css'
+            filename: 
+            mode === 'production' 
+            ? '[name].[contenthash].bundle.css'
+            : '[name].css'
         })
     ],
 })
