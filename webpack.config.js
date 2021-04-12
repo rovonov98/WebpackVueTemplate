@@ -6,16 +6,16 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = (_, { mode }) => ({
     entry: {
-        main: path.join(__dirname, 'src', 'main.js'),
-        vendor: path.join(__dirname, 'src', 'vendor.js')
+        main: path.resolve(__dirname, 'src', 'main.js'),
+        vendor: path.resolve(__dirname, 'src', 'vendor.js')
     },
     output: {
-        path: path.join(__dirname, 'dist'),
-        publicPath: '/dist/',
+        path: path.resolve(__dirname, 'dist'),
+        publicPath: '/',
         filename: 
-        mode === 'production'
-        ? '[name].[contenthash].bundle.js'
-        : '[name].js'
+            mode === 'production'
+            ? '[name].[contenthash].bundle.js'
+            : '[name].js'
     },
     module: {
         rules: [
@@ -60,14 +60,15 @@ module.exports = (_, { mode }) => ({
     plugins: [
         new VueLoaderPlugin(),
         new HtmlWebpackPlugin({
-            title: 'Webpack Vue template'
+            title: 'Webpack Vue template',
+            template: './index.html'
         }),
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
             filename: 
-            mode === 'production' 
-            ? '[name].[contenthash].bundle.css'
-            : '[name].css'
+                mode === 'production' 
+                ? '[name].[contenthash].bundle.css'
+                : '[name].css'
         })
     ],
 })
