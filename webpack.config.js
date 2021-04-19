@@ -57,6 +57,9 @@ module.exports = (_, { mode }) => ({
     devServer: {
         port: 3000
     },
+    resolve: {
+        extensions: ['.js', '.vue']
+    },
     plugins: [
         new VueLoaderPlugin(),
         new HtmlWebpackPlugin({
