@@ -55,7 +55,9 @@ module.exports = (_, { mode }) => ({
         ]
     },
     devServer: {
-        port: 3000
+        port: 3000,
+        contentBase: './dist',
+        hot: true
     },
     resolve: {
         extensions: ['.js', '.vue']
@@ -64,7 +66,8 @@ module.exports = (_, { mode }) => ({
         new VueLoaderPlugin(),
         new HtmlWebpackPlugin({
             title: 'Webpack Vue template',
-            template: './index.html'
+            template: './index.html',
+            inject: 'body'
         }),
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
